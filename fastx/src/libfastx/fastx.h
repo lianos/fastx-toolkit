@@ -58,6 +58,12 @@ typedef enum {
 	OUTPUT_SAME_AS_INPUT=3
 } OUTPUT_FILE_TYPE;
 
+typedef enum {
+	BASE_SPACE=0,
+	COLOR_SPACE=1,
+	DOUBLECOLOR_SPACE=2
+} SEQUENCE_SPACE;
+
 #pragma pack(1) 
 typedef struct 
 {
@@ -83,7 +89,7 @@ typedef struct
 	int	write_fastq;		// 0 = Write only FASTA (regardless of input type)
 	int	write_fastq_ascii;	// 1 = Write ASCII quality scores, 0 = write numeric quality scores
 	int	compress_output;		// 1 = pass output through GZIP
-
+	
 	int     copy_input_fastq_format_to_output ; // 1 = copy 'read_fastq_ascii' to 'write_fastq_ascii'
 						    // so that the output format is the same as the input
 	int	fastq_ascii_quality_offset ;  // When reading FASTQ with ASCII quality values, subtract this value to get 'real' numeric quality score;
@@ -104,6 +110,15 @@ typedef struct
 
 	FILE*	input;
 	FILE*	output;
+	
+	/********** Extensions ************/
+	// See SEQUENCE_SPACE enum
+	int sequence_space;
+	// Only valid for color_/doublecolor_space: is there a leading 'anchor' nucleotide (0/1)
+	int sequence_has_anchor;
+	int validate_quality;		// 0: Don't validate input/output quality values.
+	int validate_sequence;		// 0: Don't validate input/ouput seqs/nucleotides.
+	
 } FASTX ;
 
 
