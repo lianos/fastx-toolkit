@@ -30,6 +30,7 @@ int verbose_flag();
 int compress_output_flag();
 int get_fastq_ascii_quality_offset();
 FILE* get_report_file();
+int do_quality_check();
 
 typedef int (*parse_argument_func)(int optind, int optc, char* optarg)  ;
 

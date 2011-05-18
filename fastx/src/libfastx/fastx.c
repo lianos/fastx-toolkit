@@ -27,6 +27,7 @@
 
 #include "chomp.h"
 #include "fastx.h"
+#include "fastx_args.h"
 
 /*
 	valid_sequence_string - 
@@ -125,7 +126,7 @@ static void convert_ascii_quality_score_line(const char* ascii_quality_scores, F
 
 	for (i=0; i<strlen(ascii_quality_scores); i++) {
 		pFASTX->quality[i] = (int) (ascii_quality_scores[i] - pFASTX->fastq_ascii_quality_offset ) ;
-		if (pFASTX->quality[i] < -15 || pFASTX->quality[i] > 93) 
+		if (do_quality_check() && (pFASTX->quality[i] < -15 || pFASTX->quality[i] > 93)) 
 			errx(1, "Invalid quality score value (char '%c' ord %d quality value %d) on line %lld",
 				ascii_quality_scores[i], ascii_quality_scores[i],
 				pFASTX->quality[i], pFASTX->input_line_number );
@@ -149,7 +150,7 @@ static void convert_numeric_quality_score_line ( const char* numeric_quality_lin
 			errx(1,"Error: invalid quality score data on line %lld (quality_tok = \"%s\"", 
 				pFASTX->input_line_number ,quality_tok);
 
-		if (quality_value > 93 || quality_value < -15)
+		if (do_quality_check() && (quality_value > 93 || quality_value < -15))
 			errx(1, "invalid quality score value (%d) in line %lld.", 
 				quality_value, pFASTX->input_line_number);
 		

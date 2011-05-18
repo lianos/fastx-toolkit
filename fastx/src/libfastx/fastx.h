@@ -113,11 +113,11 @@ typedef struct
 	
 	/********** Extensions ************/
 	// See SEQUENCE_SPACE enum
-	int sequence_space;
+	// int sequence_space;
 	// Only valid for color_/doublecolor_space: is there a leading 'anchor' nucleotide (0/1)
-	int sequence_has_anchor;
-	int validate_quality;		// 0: Don't validate input/output quality values.
-	int validate_sequence;		// 0: Don't validate input/ouput seqs/nucleotides.
+	// int sequence_has_anchor;
+	// int validate_quality;		// 0: Don't validate input/output quality values.
+	// int validate_sequence;		// 0: Don't validate input/ouput seqs/nucleotides.
 	
 } FASTX ;
 

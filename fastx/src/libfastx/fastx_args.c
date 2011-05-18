@@ -41,6 +41,8 @@ const char* output_filename = "-";
 int verbose = 0;
 int compress_output = 0 ;
 int fastq_ascii_quality_offset = 64 ;
+int do_quality_checkp = 1;
+
 FILE* report_file;
 
 int get_fastq_ascii_quality_offset()
@@ -73,6 +75,11 @@ FILE* get_report_file()
 	return report_file;
 }
 
+/* set -q flag to turn off */
+int do_quality_check() {
+    return do_quality_checkp;
+}
+
 int fastx_parse_cmdline( int argc, char* argv[],
 			 const char* program_options,
 			 parse_argument_func program_parse_args ) 
@@ -81,7 +88,7 @@ int fastx_parse_cmdline( int argc, char* argv[],
 
 	char combined_options_string[100];
 
-	strcpy(combined_options_string, "Q:zhvi:o:");
+	strcpy(combined_options_string, "Q:zhvi:o:q");
 	strcat(combined_options_string, program_options);
 	
 	report_file = stderr ; //since the default output is STDOUT, the report goes by default to STDERR
@@ -131,6 +138,10 @@ int fastx_parse_cmdline( int argc, char* argv[],
 			fastq_ascii_quality_offset = atoi(optarg);
 			break;
 
+        case 'q':
+            do_quality_checkp = 0;
+            break;
+        
 		default:
 			printf("use '-h' for usage information.\n");
 			exit(1);
