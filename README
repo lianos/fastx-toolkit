@@ -1,3 +1,7 @@
 Tweaks to the FASTX-Toolkit.
 
+One (useful) tweak is the (default) disabling of quality-score checks
+in parsing/manipulating/writing fastq files. The default fastx behavior
+can be turned back on by adding the `-S` switch to the command.
+
 FASTX-Toolkit version 0.13 and libgtextutils version 0.6 were used as the base.
