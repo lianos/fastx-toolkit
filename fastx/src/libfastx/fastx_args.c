@@ -41,7 +41,7 @@ const char* output_filename = "-";
 int verbose = 0;
 int compress_output = 0 ;
 int fastq_ascii_quality_offset = 64 ;
-int do_quality_checkp = 1;
+int do_quality_checkp = 0;
 
 FILE* report_file;
 
@@ -75,7 +75,7 @@ FILE* get_report_file()
 	return report_file;
 }
 
-/* set -q flag to turn off */
+/* set -S flag to turn on */
 int do_quality_check() {
     return do_quality_checkp;
 }
@@ -138,8 +138,10 @@ int fastx_parse_cmdline( int argc, char* argv[],
 			fastq_ascii_quality_offset = atoi(optarg);
 			break;
 
-        case 'q':
-            do_quality_checkp = 0;
+        case 'S':
+            // 'S' for "strict" -- when set, fastxx_* will check that quality scores
+            // are in valid ranges.
+            do_quality_checkp = 1;
             break;
         
 		default:
